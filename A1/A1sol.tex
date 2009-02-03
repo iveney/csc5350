@@ -1,0 +1,205 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[colorlinks=false,pdfborder=000]{hyperref}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{titling}
+\usepackage[top=1.2in, bottom=1.2in, left=1.2in, right=1.2in]{geometry}
+\usepackage[dvips]{graphicx,color}
+\usepackage{times}
+\usepackage{comment}
+\usepackage{subfigure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\CSE}{\href{http://www.cse.cuhk.edu.hk}{Department of Computer Science and
+Engineering}}
+\newcommand{\CUHK}{\href{http://www.cuhk.edu.hk}{The Chinese University of Hong Kong}}
+\newcommand{\mymail}{\mbox{\textcolor{blue}{\underline{zgxiao@cse.cuhk.edu.hk}}}}
+\newcommand{\myname}{\href{http://www.cse.cuhk.edu.hk/~zgxiao}{XIAO Zigang}}
+\newcommand{\header}[1]{\noindent {\bf \\#1\\}}
+\newcommand{\NE}{Nash Equilibrium }
+\newcommand{\tot}{\frac{2}{3}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% modify the font size of title, author and date
+\pretitle{\begin{center}\bf \LARGE} \posttitle{\par\end{center}}
+\preauthor{\begin{center}
+            \small \lineskip 0.5em%
+            \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\small} \postdate{\par\end{center}}
+
+\title{CSC 5350 Assignment 1}
+\author{\myname\\\mymail\\\CSE\\\CUHK}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%\begin{pspicture}(-0.5,0)(2.5,1)
+%\psdots(0,0)(2,0)(1,1)
+%\end{pspicture}
+\section{(Exercise 24.1)}
+\begin{enumerate}[a.]
+\item
+Let $u_{1}$ be player $1'$s payoff function in $G$, and $v_{1}$ be
+her payoff function in $G'$. According to the question statement,
+for every action profile $(x,y)$ in $G$ and $G'$, $v_{1}(x,y)\geq
+u_{1}(x,y)$. Suppose there are n action available to player $1$.
+Then for each action $x_{i}$:
+\begin{equation}\min_{y}v_{1}(x_{i},y)\geq \min_{y}u_{1}(x_{i},y) ,
+i=1,2,\ldots,n
+\end{equation}
+Moreover:
+\begin{equation}
+\max_{x}\min_{y}v_{1}(x,y)\geq \max_{x}\min_{y}u_{1}(x,y)
+\end{equation}
+Since $\max_{x}\min_{y}v_{1}(x,y)$ is a maxminimizer for both
+players in $G'$, which means
+$v_{1}(x^*,y^*)=\max_{x}\min_{y}v_{1}(x,y)$, i.e. $(x^*,y^*)$ is the
+\NE of $G'$. Similarly we got $(s^*,t^*)$, the \NE of $G$.Then we
+got $v_1(x^*,y^*)\geq u_1(s^*,t^*)$, which means the Nash
+Equilibrium in $G'$ is no worse than that in $G$.
+
+\item
+Let $u_1(x,y)$ be the first player's payoff function. Let $G'$ be
+the game where one of player $1'$s action is deleted, i.e.
+$(A_1)'\subseteq (A_1)$. The payoff function is the same. Let $X,X'$
+the set produced by $\min_yu_1(x,y)$ in $G$ and $G'$. Then we got
+$X'\subseteq X$,hence $\max(X')\leq \max(X)$. That is,
+\begin{equation}
+\max_{x\in (A_1)'}\min_yu_1(x,y)\leq \max_{x\in
+(A_1)}\min_yu_1(x,y)\end{equation} (They are the \NE of $G$ and
+$G'$.)
+
+\item
+For a, let $G$ and $G'$ be \\
+\[
+\begin{tabular}{|c|c|c|}
+  \hline
+        & $y_1$ & $y_2$ \\
+  \hline
+  $x_1$ & (1,3) & (2,2) \\
+  \hline
+  $x_2$ & (2,2) & \textbf{(4,4)} \\
+  \hline
+\end{tabular}
+\quad \Rightarrow \quad
+\begin{tabular}{|c|c|c|}
+  \hline
+        & $y_1$ & $y_2$ \\
+  \hline
+  $x_1$ & \textbf{(3,3)} & (5,2) \\
+  \hline
+  $x_2$ & (2,2) & (4,4) \\
+  \hline
+\end{tabular}
+\]
+
+\begin{comment}
+\begin{figure}
+\centering \subfigure[$G$]{\begin{tabular}{|c|c|c|}
+  \hline
+        & $y_1$ & $y_2$ \\
+  \hline
+  $x_1$ & (1,3) & (2,2) \\
+  \hline
+  $x_2$ & (2,2) & \textbf{(4,4)} \\
+  \hline
+\end{tabular}
+}
+ \subfigure{$\quad \Rightarrow \quad$}
+\subfigure[$G'$]{\begin{tabular}{|c|c|c|}
+  \hline
+        & $y_1$ & $y_2$ \\
+  \hline
+  $x_1$ & \textbf{(3,3)} & (5,2) \\
+  \hline
+  $x_2$ & (2,2) & (4,4) \\
+  \hline
+\end{tabular}}
+\end{figure}
+\end{comment}
+
+The \NE is $(x_2,y_2)$. If we change $(x_1,y_1)$ to $(3,3)$,
+$(x_1,y_2)$ to $(5,2)$ then the \NE is $(x_1,y_1)$ in $G'$, where
+player 1 has a worse payoff 3 than the payoff 4 in $(x_2,y_2)$
+of $G$.\\\\
+For b, use the second table as $G$. If we prohibit player 1 from
+using $x_1$, then $(x_2,y_2)=(4,4)$ is the \NE such that player 1
+will have a higher payoff than the \NE in $G$.
+\end{enumerate}
+
+\section{(Exercise 35.1)}
+Assume that there exists a mixed strategy \NE
+$\alpha^*=(\alpha_i^*)$. For every player i, his action profile
+$\alpha^*_1$ is in the form $(1(p_1^1),2(p_2^1)\ldots K(p_K^1))$.
+\begin{enumerate}
+\item If other player's actions are fixed, player i can always
+calculate and choose the action $x^*$ which is closest to 2/3 of
+
+average as some other people may be, and this is his payoff, which
+is greater than 0,or he gets payoff value 0.
+\item Let $m^*$ be the largest number that has a probability greater
+than 0 for player i in $\alpha_i^*$. Since for every action in the
+support of his mixed strategy \NE, mixed strategy yields the same
+payoff for him. Also the payoff should be positive because of (1).
+When he chooses $m^*$, it means that he is using $m^*$ to achieve
+the "closest to 2/3 of average" goal. Also there are some other
+players who also choose $m^*$. Then these people as well as i get
+the split prize. Others get 0.
+\item If player i chooses $m^*$, he would rather choose $m^*-1$ in order to
+get a better payoff because at that time he becomes the only one who
+is closest to 2/3 average, and thus getting better payoff. However,
+if he chooses $m^*-1$, others will also adjust their strategy to get
+better payoff, which results an iterate decreasing of $m^*$, and
+finally $m^*=1$ for all the players. Since we assume that $m^*$ is
+the largest number that has a positive probability, the probability
+of $m^*$ becomes 1 and we got the unique mixed strategy \NE in which
+every player's strategy is pure.
+\end{enumerate}
+\section{(Exercise 94.2)}
+Prove it as two parts.
+\begin{enumerate}
+\item
+Without loss of generality, let $(a'_1,a'_2)\sim_i (a'_1,a''_2)$ for
+$i=1,2$. Let $u_i$ be their payoff function, then we got
+$u_1(a'_1,a'_2)=u_1(a'_1,a''_2)$ and
+$u_2(a'_1,a'_2)=u_2(a'_1,a''_2)$. Then we can construct a extensive
+game with perfect information $\Gamma$ as in Figure
+\ref{fig:extgame}.
+\begin{figure}[!ht]
+  \begin{minipage}[c]{0.5\textwidth}
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+            & $a'_2$ & $a''_2$ \\\hline
+    $a'_1$  & (1,2) & (1,2) \\\hline
+    $a''_1$ & (3,4) & (5,6) \\\hline
+    \end{tabular}
+  \end{minipage}%
+  \begin{minipage}[c]{0.1\textwidth}
+    $\Rightarrow$
+  \end{minipage}
+  \begin{minipage}[c]{0.3\textwidth}
+    \centering
+    \includegraphics{tree.mps}
+  \end{minipage}
+\caption{extensive game with perfect information construct from $G$}
+\label{fig:extgame}
+\end{figure}
+
+\item
+Suppose $G$ is the strategic form of an extensive game $\Gamma$ with
+perfect information. There are only two strategy for each player in
+the strategic form, and each strategy contains only one action,
+which means that both player have only one chance to move on a
+non-terminal history. Without loss of generality, let player 1 move
+first. From the empty sequence, he could choose to play $a'_1$ or
+$a''_1$. Because player 2 only have one chance to move on a
+non-terminal history, say, $a''_1$, then player $1's$ action $a'_1$
+leads to a terminal history, so the strategy profile between both
+player yields the same outcome. Hence we got $(a'_1,a'_2)\sim_i
+(a'_1,a''_2)$ for $i=1,2$ in  this case.
+\end{enumerate}
+By combining 1 and 2, we prove the if and only if condition. \\*
+\center{\textbf{--- End of Assignment
+---}}
+\end{document}

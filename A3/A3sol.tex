@@ -1,0 +1,396 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[colorlinks=false,pdfborder=000]{hyperref}
+\usepackage{enumerate}
+%\usepackage{txfonts}
+%\usepackage{multirow}
+%\usepackage{subfigure}
+%\usepackage{sgame}
+\usepackage{titling}
+\usepackage[top=1.2in, bottom=1.2in, left=1.0in, right=1.2in]{geometry}
+\usepackage[dvips]{graphicx,color}
+\usepackage{ps4pdf}
+\usepackage{times}
+\usepackage{comment}
+\usepackage{amssymb}
+\PSforPDF{\usepackage{pstricks,egameps}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\CSE}{\href{http://www.cse.cuhk.edu.hk}{Department of Computer Science and
+Engineering}}
+\newcommand{\CUHK}{\href{http://www.cuhk.edu.hk}{The Chinese University of Hong Kong}}
+\newcommand{\mymail}{\mbox{\textcolor{blue}{\underline{zgxiao@cse.cuhk.edu.hk}}}}
+\newcommand{\myname}{\href{http://www.cse.cuhk.edu.hk/~zgxiao}{XIAO Zigang}}
+\newcommand{\header}[1]{\noindent {\bf \\#1\\}}
+\newcommand{\NE}{Nash Equilibrium }
+\newcommand{\tot}{\frac{2}{3}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% modify the font size of title, author and date
+\pretitle{\begin{center}\bf \LARGE} \posttitle{\par\end{center}}
+\preauthor{\begin{center}
+            \small \lineskip 0.5em%
+            \begin{tabular}[t]{c}}
+\postauthor{\end{tabular}\par\end{center}}
+\predate{\begin{center}\small} \postdate{\par\end{center}}
+
+\title{CSC 5350 Assignment 3}
+\author{\myname\\\mymail\\\CSE\\\CUHK}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\begin{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% 1
+\item
+\begin{enumerate}[(a)]
+\item
+
+    \begin{enumerate}[i.]
+    \item
+        $N=\{1,2\}$
+    \item
+        $P(\{R\})=P(\{G\})=P(\{\varnothing\})=1$\\
+        $P(\{(R,r),(G,r)\})=P(\{(R,g),(G,g)\})=2$
+    \item
+        $\mathcal {I}_1=\{\{\varnothing\},\{R\},\{G\}\}$
+    \item
+        $\mathcal {I}_2=\{\{(R,r),(G,r)\},\{(R,g),(G,g)\}\}$
+    \end{enumerate}
+
+\item
+    Yes. For player 1, only one history in all of his information set, do not need to check $X_1$.
+    For player 2,
+    \begin{displaymath}
+    \begin{array}{c}
+        X_2((R,r))=X_2((G,r))=\{(R,r),(G,r)\}\\
+        X_2((R,g))=X_2((G,g))=\{(R,g),(G,g)\}
+    \end{array}
+    \end{displaymath}
+
+\item
+    Eight pure strategy for player 1: $Rrr,Rgr,Rrg,Rgg,Grr,Ggr,Grg,Ggg$.
+
+\item
+    Four pure strategy for player 2: $yy,yn,ny,nn$.
+
+\item
+The game can be modeled as Figure \ref{fig:1}.
+\begin{figure}[!htb]
+\centering
+\PSforPDF{%--- BEGIN PSforPDF
+    \begin{egame}(800,600)
+        %
+        % put the initial branch at (300,240), with (x,y) direction
+        % (2,1), and horizontal length 200
+        \putbranch(400,300)(1,0){200}
+        \iib{1}{$R$}{$G$}
+        \putbranch(200,300)(0,1)[r]{100}
+        \iib{1}{$r$}{$g$}
+        \putbranch(600,300)(0,1)[l]{100}
+        \iib{1}{$r$}{$g$}
+
+        \putbranch(200,400)(1,1)[u]{100}
+        \iib{}{$y$}{$n$}[$(3,3)$][$(-1,-1)$]
+        \putbranch(600,400)(1,1)[u]{100}
+        \iib{}{$y$}{$n$}[$(5,0)$][$(-5,1)$]
+        \infoset(200,400){400}{2}
+
+        \putbranch(200,200)(1,1)[d]{100}
+        \iib{}{$y$}{$n$}[$(10,0)$][$(-10,1)$]
+        \putbranch(600,200)(1,1)[d]{100}
+        \iib{}{$y$}{$n$}[$(3,3)$][$(-1,-1)$]
+        \infoset(200,200){400}{2}
+    \end{egame}
+}%--- END PSforPDF
+
+\caption{Illustration}\label{fig:1}
+\end{figure}
+
+Suppose player 2 believes that the probability player 1 chooses red box is $\alpha$,
+and green box $1-\alpha$, where $\alpha \in (0.5,1]$.
+    \begin{itemize}
+    \item If player 1 proposes $r$,
+          for player 2, the expected payoff to $y$ is $3\alpha$ and to $n$ is
+          $-\alpha+(1-\alpha)=1-2\alpha$.
+          Hence player 2 should choose $y$ if $3\alpha \ge 1-2\alpha$, i.e. $\alpha \ge 0.2$.
+          Since $\alpha > 0.5 > 0.2$, player 2 will always choose $y$.
+    \item If player 1 proposes $g$,
+          for player 2, the expected payoff to $y$ is $3(1-\alpha)$ and to $n$ is
+          $\alpha-(1-\alpha)=2\alpha-1$.
+          Hence player 2 should choose $y$ if $3(1-\alpha) \ge 2\alpha-1$, i.e. $\alpha \le 0.8$,
+          and he will choose $n$ if $\alpha \ge 0.8$.
+    \end{itemize}
+
+\item
+The behavioral strategy of player 2 is
+    \begin{displaymath}
+    \begin{array}{l}
+        \beta_2(\{(R,r),(G,r)\})=(y(0.5),n(0.5))\\
+        \beta_2(\{(R,g),(G,g)\})=(y(0.5),n(0.5))
+    \end{array}
+    \end{displaymath}
+Let the probability player 1 choose red box be $p_1$.
+Let the probability player 1 choose to tell the truth be $p_t$.
+
+The expected payoff of player 1 is
+    \begin{displaymath}
+    0.5(2p_1p_t+0(1-p_1)(1-p_t)+0p_1(1-p_t)+2(1-p_1)p_t)=p_t
+    \end{displaymath}
+Hence in order to maximize his payoff, he should choose $p_t=1$, $p_1=\alpha$ where $\alpha \in [0,1]$,
+ i.e. always tell the truth no matter in which color box he puts a ball.
+The best response $\beta_1$ is:
+    \begin{displaymath}
+    \begin{array}{l}
+        \beta_1(\{\varnothing\})=(R(\alpha),G(1-\alpha)), \alpha \in [0,1]\\
+        \beta_1(\{R\})=(r(1),g(0))\\
+        \beta_1(\{G\})=(r(0),g(1))
+    \end{array}
+    \end{displaymath}
+
+\item
+Let $\beta=(\beta_1,\beta_2)$, and
+    \begin{displaymath}
+    \begin{array}{lll}
+        \mu= & \{ & \{\varnothing\} \mapsto \{\varnothing\}(1)\\
+             &    & \{R\} \mapsto \{R\}(1)\\
+             &    & \{G\} \mapsto \{G\}(1)\\
+             &    & \{(R,r),(G,r)\}) \mapsto ((R,r)(\alpha),(G,r)(1-\alpha))\\
+             &    & \{(R,g),(G,g)\}) \mapsto ((R,g)(\alpha),(G,g)(1-\alpha))\}
+    \end{array}
+    \end{displaymath}
+Then $(\beta,\mu)$ is a consistent assessment, because we have $\beta$ is the limit of $\varepsilon \rightarrow 0$ for
+    \begin{displaymath}
+    \begin{array}{l}
+        \beta_1^\varepsilon(\{\varnothing\})=(R(\alpha-\varepsilon),G(1-\alpha+\varepsilon)), \alpha \in [0,1]\\
+        \beta_1^\varepsilon(\{R\})=(r(1-\varepsilon),g(\varepsilon))\\
+        \beta_1^\varepsilon(\{G\})=(r(\varepsilon),g(1-\varepsilon))\\
+        \beta_2^\varepsilon(\{(R,r),(G,r)\})=(y(0.5\varepsilon),n(0.5\varepsilon))\\
+        \beta_2^\varepsilon(\{(R,g),(G,g)\})=(y(0.5\varepsilon),n(0.5\varepsilon))\\
+    \end{array}
+    \end{displaymath}
+and for every $\varepsilon$,
+    \begin{displaymath}
+    \begin{array}{lll}
+        \mu^\varepsilon= & \{ & \{\varnothing\} \mapsto \{\varnothing\}(1)\\
+             &    & \{R\} \mapsto \{R\}(1)\\
+             &    & \{G\} \mapsto \{G\}(1)\\
+             &    & \{(R,r),(G,r)\} \mapsto ((R,r)(\alpha),(G,r)(1-\alpha))\\
+             &    & \{(R,g),(G,g)\} \mapsto ((R,g)(\alpha),(G,g)(1-\alpha))\}
+    \end{array}
+    \end{displaymath}
+
+\item
+It is not a sequential equilibrium. We verify it for each information set:
+\begin{itemize}
+  \item For $\{\varnothing\} \in \mathcal {I}_1$ we have already verified in $(f)$ that $\beta_1$ is the best response.
+  \item For $\{R\} \in \mathcal {I}_1$, $O(\beta,\mu | \{R\})=1$, let $\beta'_1(\{R\})=(r(p_r),g(1-p_r))$, we can get
+        $O((\beta_{-1},\beta'_1),\mu | \{R\})=p_r$, hence $O(\beta,\mu | \{R\}) \succsim_1  O((\beta_{-1},\beta'_1),\mu | \{R\})$
+  \item For $\{G\} \in \mathcal {I}_1$, it is similar as previous point.
+  \item For $\{(R,r),(G,r)\} \in \mathcal {I}_2$, let $\beta'_2(\{(R,r),(G,r)\})=(y(p_y),n(1-p_y))$, we can get
+        $O((\beta_{-2},\beta'_2),\mu | \{(R,r),(G,r)\})=(3\alpha-1)p_y+1-\alpha$.
+        The maximum 2 is achieved when $\alpha=p_y=1$. If we fix $p_y$ to $0.5$, then the max is achieved when $\alpha=1$.
+        But when $\alpha=1$, the maximum is achieved when $p_y=1$, hence it is not sequentially rational here.
+\end{itemize}
+\item
+Since the game has already been to the history $(R,g)$,
+the subgame reduces to the game with only player 2 whose behavioral strategy is $\beta_2((R,g))=(y(0.8),n(0.2))$.
+Hence the outcome of the game is $(Rgy(0.8),Rgn(0.2))$.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% 2
+\item
+\begin{enumerate}[(a)]
+\item
+    As in Figure \ref{fig:2}.
+    \begin{figure}[!htb]
+    \centering
+    \PSforPDF{%--- BEGIN PSforPDF
+    \renewcommand{\egplbox}{c}
+    \renewcommand{\egplboxlinestyle}{solid}
+        \begin{egame}(1200,500)
+
+            \putbranch(800,400)(3,1){300}
+            \iib{1}{$C$}{$S$}[][$(0,0)$]
+            \putbranch(500,300)(3,1){300}
+            \iiib{1}{$1$}{$2$}{$3$}
+
+            \infoset(200,200){600}{}
+            \putbranch(200,200)(1,1){100}
+            \iiib{}{$1$}{$2$}{$3$}[$(0,0)$][$(0,1)$][$(1,0)$]
+            \putbranch(500,200)(1,1){100}
+            \iiib{2}[l]{$1$}{$2$}{$3$}[$(1,0)$][$(0,0)$][$(0,1)$]
+            \putbranch(800,200)(1,1){100}
+            \iiib{}{$1$}{$2$}{$3$}[$(0,1)$][$(1,0)$][$(0,0)$]
+
+        \end{egame}
+    }%--- END PSforPDF
+    \caption{Game tree}\label{fig:2}
+    \end{figure}
+
+\item
+We have $\mathcal {I}_1=\{\{\varnothing\},\{C\}\}$, $\mathcal {I}_2=\{\{(C,1),(C,2),(C,3)\}\}$.
+For player 1, each information set only contains a history.
+Let $I_2=\{(C,1),(C,2),(C,3)\}$.
+For player 2, $X_2((C,1))=X_2((C,2))=X_2((C,3))=I_2$.
+Hence it is a game with perfect recall.
+
+\item
+We have $\beta_2(I_2)=(1({1\over 2}), 2({1\over 8}), 3({3\over 8}))$ in this case.
+Let: \\$\beta_1(\{\varnothing\}=(C(p_c),S(1-p_c)))$, \\$\beta_1(\{C\})=(1(p_1),2(p_2),3(p_3))$, and $p_1+p_2+p_3=1$.
+Then the expected payoff of player 1 is:
+    \begin{displaymath}
+    \begin{array}{ll}
+    & p_c p_1 ({1\over 2}\cdot0+{1\over 8}\cdot0+{3\over 8}\cdot1)+
+    p_c p_2 ({1\over 2}\cdot1+{1\over 8}\cdot0+{3\over 8}\cdot0)+\\
+    & p_c p_3 ({1\over 2}\cdot0+{1\over 8}\cdot1+{3\over 8}\cdot0)+
+    (1-p_c)\cdot0\\
+    = & {1\over 8}p_c(3p_1+4p_2+p_3)
+    \end{array}
+    \end{displaymath}
+In order to maximize this value, one should set $p_c=1$ and $p_1=p_3=0,p_2=1$, i.e.
+    \begin{displaymath}
+    \begin{array}{l}
+    \beta_1(\{\varnothing\}=(C(1),S(0)))\\
+    \beta_1(\{C\})=(1(0),2(1),3(0))
+    \end{array}
+    \end{displaymath}
+
+\item
+Let $\mu=\{\{\varnothing\}\mapsto\{\varnothing\}(1), \{C\}\mapsto\{C\}(1), I_2\mapsto(1(0),2(1),3(0))\}$.
+Then $(\beta,\mu)$ is consistent assessment. We define:
+    \begin{displaymath}
+    \begin{array}{l}
+    \beta_1^\varepsilon(\{\varnothing\})=(C(1-\varepsilon),S(\varepsilon))\\
+    \beta_1^\varepsilon(\{C\})=(1(\varepsilon),2(1-\varepsilon-\varepsilon^2),3(\varepsilon^2))\\
+    \beta_2^\varepsilon(I_2)=(1({1\over 2}\varepsilon),2({1\over 8}\varepsilon),3({3\over 8}\varepsilon))
+    \end{array}
+    \end{displaymath}
+We can always get $\mu^\varepsilon(\{\varnothing\})=1$, $\mu^\varepsilon(\{C\})=1-\varepsilon \rightarrow 1$,\\
+$\mu^\varepsilon(I_2)=(1(\varepsilon),2(1-\varepsilon-\varepsilon^2),3(\varepsilon^2)) \rightarrow (1(0),2(1),3(0))$,
+for every $\varepsilon \rightarrow 0$.
+
+\item
+It is not a sequential equilibrium. We verify it for each information set:
+    \begin{itemize}
+    \item For $\{\varnothing\}\in \mathcal {I}_1$ we have already verified from (d) that $\beta$ is best response.
+    \item For $\{C\} \in \mathcal {I}_1$, let $\beta'_1(\{C\})=(1(p_1),2(p_2),3(p_3)), p_1+p_2+p_3=1$.
+            We can get $O((\beta_{-1},\beta'_1),\mu | \{C\})={1\over8}(3p_1+4p_2+p_3)$,
+            hence in order to maximize we set $p_1=p_3=0,p_2=1$, $O(\beta_1,\mu | \{C\}) \succsim_1 O((\beta_{-1},\beta'_1),\mu | \{C\})$.
+    \item For $I_2 \in \mathcal {I}_2$, let $\beta'_2(I_2)=(1(q_1),2(q_2),3(q_3)), q_1+q_2+q_3=1$.
+            We can get $O((\beta_{-2},\beta'_2),\mu | I_2)=q_3$, set $q_3=1$ in order to maximize.
+            However $O(\beta_2,\mu | \{C\})={3\over8}$. It is not sequentially rational.
+    \end{itemize}
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% 3
+\item
+\begin{enumerate}[(a)]
+  \item
+  \begin{enumerate}[i.]
+    \item $N=\{1,2,...,7\}$
+    \item
+    For any coalition $S$, let $g_1=\{1,2\}$ and $g_2=\{3,4,5,6,7\}$, then
+    \begin{displaymath}
+        v(S) = \min (|S\cap g_1|,|S \cap g_2|)
+    \end{displaymath}
+  \end{enumerate}
+
+  \item
+  $Y_1$ is a stable set. Prove:
+  \begin{itemize}
+    \item
+        Internal stability: Suppose $Y_1$ does not hold internal stability.
+        Then there must be some $z \in Y_1$ such that there exist an imputations $y \in Y_1$ and $S$ for which $y \succ_S z$.
+        Let $z=(x_1,x_1,y_1,y_1,y_1,y_1,y_1)$ and $y=(x_2,x_2,y_2,y_2,y_2,y_2,y_2)$.
+        First note that $y(S)>0$ for the coalition $S$ to object $z$, otherwise $z(S)<y(S)<=v(S)=0$.
+        In order to let $y(S)>0$, one in $g_1$ and one among $g_2$ must be in $S$.
+        Then there must be $x_2>x_1$ and $y_2>y_1$, hence $2x_2+5y_2>2x_1+5y_1=2$.
+        It is impossible because $v(N)=2$.
+    \item
+        External stability: Without loss of generality, we rearrange player's position such that for an imputation $z \in X \backslash Y_1$,
+        we have $z=(z_i)_{i\in N}$, where $z_1 \le z_2$, $z_3 \le ... \le z_5$
+        (but there must be at least one strict inequality so that it is not in $Y_1$),
+        i.e. rearrange $g_1,g_2$ in non-decreasing order.
+        Hence $z_1$ and $z_3$ has the smallest payoff among two groups, respectively.
+        Let $A_1$ and $A_2$ be the average payoff among $g_1$ and $g_2$, respectively.
+        Then we have $2A_1+5A_2=2$ or $A_2=2(1-A_1)/5$.
+        Let $y$ be the imputation in $Y_1$, where $y_1=y_2=A_1$ and $y_3=y_4=...=y_7=A_2$.
+        Then there must be either $y_1 \ge x_1$ or $y_3 \ge x_3$ is strict inequality.
+        If both are strict, then $y$ is indeed an objection to $z$ of $S=\{1,3\}$.
+        For $y_1 > x_1$ and $y_3 \ge x_3$,
+        because $A_1 \le 2$ and $y_1+y_3=A_1+A_2=(3A_1+2)/5 \le 1$.
+        By moving some fraction from $y_1,y_2$ and averaging to $y_3,...,y_7$ which yields $y' \in Y_1$,
+        we could make $y'_1 > x_1$ and $y'_3 > x_3$, then $y'$ is an objection to $z$.
+        Similarly it is true for the case $y_1 \ge x_1$ and $y_3 > x_3$.
+
+  \end{itemize}
+  In conclusion, $Y_2$ is externally stable.
+\item
+    The following set is a stable set.
+    \begin{displaymath}
+        Y_2=\{(t,t,1-t,1-t,0,0,0)\} \textrm{, for every } t\in [0,1]
+    \end{displaymath}
+    Prove:
+    \begin{itemize}
+    \item
+        Internal Stability: Since player 5,6,7 always gets 0,
+        it is impossible to find some coalition $S$ to support an objection in $Y_2$.
+        Now consider for any coalition $S$ formed by players among 1 to 4 and $z\in S$,
+        then $v(S) \le z(S)$ hence it is impossible to find $y\in S$ such that $y_i>z_i$ for all $i \in S$,
+        i.e. no $y\in Y_2$ can be an objection to $z\in Y_2$ for any coalition $S$.
+    \item
+        External Stability: %The prove is very similar to (b).
+        For any $z\in X\backslash Y_2$, $\sum^4_{i=1} z_i \le v(N)=2$, and either one of $z_1 \ne z_2$ or $z_3 \ne z_4$ is true.
+        If $\sum^4_{i=1} z_i=2$, without loss of generality, if $z_1+z_3=1$ then $z_2+z_4=1$,
+        by choosing the smallest from $z_i \in \{z_1,z_2\}$ and $z_j \in \{z_3,z_4\}$ we get $z_i+z_j < 1$
+        (otherwise $z_1=z_2,z_3=z_4, \textrm{then } z\in Y_2$),
+        we can find an imputation $y\in Y_2$ where $y_i+y_j=1$ such that $y_i>z_i,y_j>z_j$,
+        to be an objection via $S=\{z_i,z_j\}$.
+        If $z_1+z_3<1$ then there is also objection $y\in Y_2$ for $S=\{z_1,z_3\}$.
+        If $\sum^4_{i=1} z_i<2$, similarly,
+        also by finding $z_i \in \{z_1,z_2\}$ and $z_j \in \{z_3,z_4\}$ we get $z_i+z_j < 1$,
+        an objection $y$ can be found in $Y_2$ via $S=\{z_i,z_j\}$.
+    \end{itemize}
+\item
+    This corresponds to the `standard of behavior' that two pairs of  green card holder and red card holder form a coalition,
+    then implement a division of the profit(=2) they gain by giving player 1 \& 2 the same amount $t$,
+    and player 3 \& 4 share the rest equally$(=1-t)$,
+    while excluding other green card players(they get 0).
+\item
+$x=(1,1,0,0,0,0,0)$ is in the core. For player 1 or player 2, they can not increase their payoff by deviating,
+because for any $S$ where either $1\in S$ or $2 \in S$, $v(S) \le 1$.
+They can not increase their payoff by both deviating and forming another coalition $S$.
+Similarly for any $v(S)$ where $1 \in S$ and $2 \in S$, $v(S) \le 2$.
+And for players 3-7, they can only form coalition $S$ and $v(S)=0$.
+Hence for every coalition $S$ there is $v(S) \le x(S)$.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{enumerate}
+
+~\\*
+\center{\textbf{--- End of Assignment---}}
+\end{document}
+\begin{comment}
+    $Y_2=\{(y_i): y_1=y_2=t, y_i=y_j=1-t, y_k=0, \textrm{ for } i,j,k \in \{3,4,5,6,7\} \wedge i \ne j \wedge i \ne k \wedge j \ne k , t = 0.5 \}
+        \cup \{(1,1,0,0,0,0,0),(0,0,0.4,0.4,0.4,0.4,0.4)\}
+    $
+    \begin{itemize}
+    \item
+        Internal Stability: For any coalition $S$ there must be at least a red card holder and a green card holder so that $v(S) > 0$.
+        But the payoff is fixed anyway in this set, no objection can be found.
+    \item
+        External Stability: For any $z \in X \backslash Y_2$, if $z_1$ or $z_2$ is smaller than $t$,
+        we may always find some player in $g_1$ and $g_2$ to form a coalition $S$ such that both is better off.
+        If $z_1$ or $z_2$ is greater that $t$, we may use $(1,1,0,0,0,0,0)$ or $(0,0,0.4,0.4,0.4,0.4,0.4)$ to back off.
+    \end{itemize}
+    we can always find tow smallest payoff $z_i \le A_1,z_j \le A_2$ where $i\in g_1,j\in g_2$,
+        such that at least one of them is strict inequality and their sum $z_i+z_i<1$
+        (note that $A_1+A_2 \le 1$ and if $A_1+A_2=1$ then $A_1=1$ and $A_2=0$, then $z \in Y_2$).
+        We can pick $y\in Y_2$ such that
+\end{comment}
